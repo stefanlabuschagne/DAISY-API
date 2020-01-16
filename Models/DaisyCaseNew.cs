@@ -8,7 +8,7 @@ namespace DAISY_API.Models
     
     // This is THE CLASS for passing the Data THROUGH the API to the SP
     // Should consist of all the fields that the SP needs.
-    public class DaisyCaseNew
+    public class DaisyCaseNew      
     {
         
         public string Counsellor { get; set; }
