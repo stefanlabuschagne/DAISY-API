@@ -88,6 +88,7 @@ namespace DAISY_API.Models
         public Boolean ReasonReationshipDomesticAbuse { get; set; }
         public Boolean ReasonRelationshipFamilyIssues { get; set; }
         public Boolean ReasonRelationshipRomanticIssues { get; set; }
+        public Boolean ReasonSexuality { get; set; }
         public Boolean ReasonSchizophrenia { get; set; }
         public Boolean ReasonSelfMutilation { get; set; }
         public Boolean ReasonSexualAbuseRape { get; set; }
@@ -97,6 +98,16 @@ namespace DAISY_API.Models
         public Boolean ReasonSubstanceAbuse { get; set; }
         public Boolean ReasonSuicide { get; set; }
         public Boolean ReasonFrequentCaller { get; set; }
+
+
+        public Boolean ReasonOtherReason { get; set; }
+        public Boolean  ReasonFollowUp { get; set; }
+        public Boolean  ReferUniversityStudentWellness { get; set; }
+        public Boolean ReferSadagHelpLine { get; set; }
+        public Boolean ReferSelfHelp { get; set; }
+        public Boolean ReferUber { get; set; }
+
+
 
         public Boolean ReferDASGFaceToFace { get; set; }
         public Boolean ReferCompanyEAP { get; set; }
