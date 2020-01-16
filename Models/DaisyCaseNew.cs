@@ -7,7 +7,8 @@ namespace DAISY_API.Models
 {
     
     // This is THE CLASS for passing the Data THROUGH the API to the SP
-    // Should consist of all the fields that the SP needs.
+    // Should consist of ALL the fields that the SP needs.
+    // WE STILL NEED TO ADD THE Dedicated Line Fields :)
     public class DaisyCaseNew      
     {
         
@@ -43,6 +44,13 @@ namespace DAISY_API.Models
         //  [Required, Display(Name = "Suburb")]
         public string Suburb { get; set; }
         //  [Required, Display(Name = "City")]
+
+        public string dLLocation { get; set; }
+        public string dLType { get; set; }
+        public string dLSource { get; set; }
+        public string dLStudentNumber { get; set; }
+
+
         public string City { get; set; }
         //  [Required, Display(Name = "Province")]
         public string Province { get; set; }

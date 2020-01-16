@@ -26,34 +26,37 @@ namespace DAISY_API.Controllers
         {
 
             // Calls The SP Here              
-
             DAISYEntities DE = new DAISYEntities();
 
+            // Theres got to be a better way to do This??
             DE.CreateCaseWrite(
-
                 name: CreateCaseNew.Name.ToString(),
-                surname: CreateCaseNew.Name.ToString(),
-                age: CreateCaseNew.Name.ToString(),
-                sex: CreateCaseNew.Name.ToString(),
-                race: CreateCaseNew.Name.ToString(),
-                occupation: CreateCaseNew.Name.ToString(),
-                medicalAid: CreateCaseNew.Name.ToString(),
-                medication: CreateCaseNew.Name.ToString(),
-                address: CreateCaseNew.Name.ToString(),
-                city: CreateCaseNew.Name.ToString(),
-                province: CreateCaseNew.Name.ToString(),
-                postalCode: CreateCaseNew.Name.ToString(),
-                telephone1: CreateCaseNew.Name.ToString(),
-                telephone2: CreateCaseNew.Name.ToString(),
-                emailAddress: CreateCaseNew.Name.ToString(),
-                suburb: CreateCaseNew.Name.ToString(),
-                dLLocation: CreateCaseNew.Name.ToString(),
-                dLType: CreateCaseNew.Name.ToString(),
-                dLSource: CreateCaseNew.Name.ToString(),
-                dLStudentNumber: CreateCaseNew.Name.ToString(),
-                counsellor: CreateCaseNew.Name.ToString(),
+                surname: CreateCaseNew.Surname.ToString(),
+                age: CreateCaseNew.Age.ToString(),
+                sex: CreateCaseNew.Sex.ToString(),
+                race: CreateCaseNew.Race.ToString(),
+                occupation: CreateCaseNew.Occupation.ToString(),
+                medicalAid: CreateCaseNew.MedicalAid.ToString(),
+                medication: CreateCaseNew.Medication.ToString(),
+                address: CreateCaseNew.Address.ToString(),
+                city: CreateCaseNew.City.ToString(),
+                province: CreateCaseNew.Province.ToString(),
+                postalCode: CreateCaseNew.PostalCode.ToString(),
+                telephone1: CreateCaseNew.Telephone1.ToString(),
+                telephone2: CreateCaseNew.Telephone2.ToString(),
+                emailAddress: CreateCaseNew.EmailAddress.ToString(),
+                suburb: CreateCaseNew.Suburb.ToString(),
+
+                dLLocation: CreateCaseNew.dLLocation.ToString(),   
+                dLType: CreateCaseNew.dLType.ToString(),      
+                dLSource: CreateCaseNew.dLSource.ToString(),
+                dLStudentNumber: CreateCaseNew.dLStudentNumber.ToString(),
+
+                counsellor: CreateCaseNew.Counsellor.ToString(),
+
                 Nullable < System.DateTime > callDate: CreateCaseNew.Name.ToString(),
-                 reasonADHD: CreateCaseNew.Name.ToString(),
+
+                 reasonADHD: Convert.ToBoolean(CreateCaseNew.ReasonADHD.ToString()),  
                  reasonAlzheimersDementia: CreateCaseNew.Name.ToString(),
                  reasonAnxiety: CreateCaseNew.Name.ToString(),
                  reasonBipolar: CreateCaseNew.Name.ToString(),
@@ -94,30 +97,37 @@ namespace DAISY_API.Controllers
                  referSocialWorker: CreateCaseNew.Name.ToString(),
                  referSupportGroup: CreateCaseNew.Name.ToString(),
                  referTraumaCentre: CreateCaseNew.Name.ToString(),
-                callSummary: CreateCaseNew.Name.ToString(),
+                 callSummary: CreateCaseNew.Name.ToString(),
                  reasonFrequentCaller: CreateCaseNew.Name.ToString(),
                  reasonBullying: CreateCaseNew.Name.ToString(),
                  reasonPregnancy: CreateCaseNew.Name.ToString(),
                  reasonSexuality: CreateCaseNew.Name.ToString(),
                  referRehabilitationCentre: CreateCaseNew.Name.ToString(),
                  reasonBorderlinePersonalityDisorder: CreateCaseNew.Name.ToString(),
-                helpLine: CreateCaseNew.Name.ToString(),
+
+                 helpLine: CreateCaseNew.HelpLine.ToString(),
+
                  reasonOtherReason: CreateCaseNew.Name.ToString(),
                  reasonFollowUp: CreateCaseNew.Name.ToString(),
                  referUniversityStudentWellness: CreateCaseNew.Name.ToString(),
                  referSadagHelpLine: CreateCaseNew.Name.ToString(),
                  referSelfHelp: CreateCaseNew.Name.ToString(),
                  referUber: CreateCaseNew.Name.ToString(),
-                dLCallTimeOfDay: CreateCaseNew.Name.ToString(),
-                calledOnBehalfOf: CreateCaseNew.Name.ToString(),
-                actionPoints: CreateCaseNew.Name.ToString(),
+
+                 dLCallTimeOfDay: CreateCaseNew.Name.ToString(),
+
+                 calledOnBehalfOf: CreateCaseNew.CalledFor.ToString(),
+                 actionPoints: CreateCaseNew.ActionPoints.ToString(),
+
                  reasonRelationshipRomanticIssues: CreateCaseNew.Name.ToString(),
                  reasonRelationshipFamilyIssues: CreateCaseNew.Name.ToString(),
                  referCompanyEAP: CreateCaseNew.Name.ToString(),
                  referUniversitySupportServices: CreateCaseNew.Name.ToString(),
+
                 Nullable<int> distressRatingBegining: CreateCaseNew.Name.ToString(),
                 Nullable<int> distressRatingEnd: CreateCaseNew.Name.ToString(),
-                 reasonAcademicStress: CreateCaseNew.reasonAcademicStress.ToString()
+
+                 reasonAcademicStress: CreateCaseNew.ReasonAcademicStress.ToString()
 
                 );
 
