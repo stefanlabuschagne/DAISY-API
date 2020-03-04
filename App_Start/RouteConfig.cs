@@ -13,6 +13,8 @@ namespace DAISY_API
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Enable Attribute Routing Instead.
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

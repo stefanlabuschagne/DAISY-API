@@ -141,7 +141,5 @@ namespace DAISY_API.Models
         //  [Required, MinLength(100), MaxLength(8000), Display(Name = "Action Points")]
         public string ActionPoints { get; set; }
 
-
-
     }
 }

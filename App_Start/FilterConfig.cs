@@ -7,6 +7,9 @@ namespace DAISY_API
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+
+            // This is used for API ErrorHandling.......
+
             filters.Add(new HandleErrorAttribute());
         }
     }

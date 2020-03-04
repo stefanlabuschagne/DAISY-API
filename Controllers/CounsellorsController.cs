@@ -16,6 +16,10 @@ namespace DAISY_API.Controllers
     {
         private DAISYEntities db = new DAISYEntities();
 
+        /// <summary>
+        /// This Returns all Counsellors
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Counsellors
         public IQueryable<Counsellor> GetCounsellors()
         {
