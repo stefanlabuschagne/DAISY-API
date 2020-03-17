@@ -211,6 +211,48 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModelAzure\Call.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\Caller.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\CallerCallInfo.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\Counsellor.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DaisyModelAzure.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DaisyModelAzure.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DaisyModelAzure.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DaisyModelAzure.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DaisyModelAzure.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DLLocation.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DLSource.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DLTime.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\DLType.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModelAzure\Helpline.cs">
+      <DependentUpon>DaisyModelAzure.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DaisyCaseNew.cs" />
     <Compile Include="Models\DataModel\Call.cs">
       <DependentUpon>DaisyModel.tt</DependentUpon>
@@ -262,6 +304,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\DataModelAzure\DaisyModelAzure.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DaisyModelAzure.edmx</DependentUpon>
+      <LastGenOutput>DaisyModelAzure.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataModelAzure\DaisyModelAzure.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DaisyModelAzure.edmx</DependentUpon>
+      <LastGenOutput>DaisyModelAzure.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\DataModel\DaisyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DaisyModel.Context.cs</LastGenOutput>
@@ -299,6 +351,13 @@
     </EntityDeploy>
     <Content Include="Models\DataModel\DaisyModel.edmx.diagram">
       <DependentUpon>DaisyModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DataModelAzure\DaisyModelAzure.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DaisyModelAzure.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataModelAzure\DaisyModelAzure.edmx.diagram">
+      <DependentUpon>DaisyModelAzure.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

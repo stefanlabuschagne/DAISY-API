@@ -4,7 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DAISYModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DAISYModelAzure.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DAISY.dbo.AgeGroups' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="AgeGroups">
+          <Property Name="Group" Type="varchar" MaxLength="10" />
+        </EntityType>-->
         <EntityType Name="Callers">
           <Key>
             <PropertyRef Name="CALLERID" />
@@ -103,7 +108,6 @@
           <Property Name="ReferUniversitySupportServices" Type="bit" />
           <Property Name="DistressRatingBegining" Type="int" />
           <Property Name="DistressRatingEnd" Type="int" />
-          <Property Name="ReasonAcademicStress" Type="bit" />
         </EntityType>
         <EntityType Name="Counsellors">
           <Key>
@@ -144,19 +148,19 @@
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.DownloadData' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="DownloadData">
-          <Property Name="Year" Type="int" />
-          <Property Name="YearMonth" Type="nvarchar" MaxLength="4000" />
-          <Property Name="CallDate" Type="datetime" />
+warning 6002: The table/view 'DAISY.dbo.CallerCallInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CallerCallInfo">
+          <Key>
+            <PropertyRef Name="CALLERID" />
+            <PropertyRef Name="CALLID" />
+          </Key>
+          <Property Name="CALLERID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Surname" Type="varchar" MaxLength="100" />
           <Property Name="Age" Type="varchar" MaxLength="10" />
-          <Property Name="Gender" Type="varchar" MaxLength="10" />
-          <Property Name="Race" Type="varchar" MaxLength="50" />
-          <Property Name="MedicalAid" Type="varchar" MaxLength="10" />
-          <Property Name="Medication" Type="varchar" MaxLength="10" />
-          <Property Name="Province" Type="varchar" MaxLength="50" />
+          <Property Name="CALLID" Type="int" Nullable="false" />
           <Property Name="Counsellor" Type="varchar" MaxLength="100" />
-          <Property Name="ReasonAcademicStress" Type="bit" />
+          <Property Name="CallDate" Type="datetime" />
           <Property Name="ReasonADHD" Type="bit" />
           <Property Name="ReasonAlzheimersDementia" Type="bit" />
           <Property Name="ReasonAnxiety" Type="bit" />
@@ -164,8 +168,8 @@ warning 6013: The table/view 'DAISY.dbo.DownloadData' does not have a primary ke
           <Property Name="ReasonDebtPovertyUnemployment" Type="bit" />
           <Property Name="ReasonDepression" Type="bit" />
           <Property Name="ReasonEatingDisoirder" Type="bit" />
-          <Property Name="ReasonHIVAIDS" Type="bit" />
           <Property Name="ReasonInformation" Type="bit" />
+          <Property Name="ReasonHIVAIDS" Type="bit" />
           <Property Name="ReasonLossGriefLoneliness" Type="bit" />
           <Property Name="ReasonNone" Type="bit" />
           <Property Name="ReasonOCD" Type="bit" />
@@ -182,12 +186,6 @@ warning 6013: The table/view 'DAISY.dbo.DownloadData' does not have a primary ke
           <Property Name="ReasonStress" Type="bit" />
           <Property Name="ReasonSubstanceAbuse" Type="bit" />
           <Property Name="ReasonSuicide" Type="bit" />
-          <Property Name="ReasonFrequentCaller" Type="bit" />
-          <Property Name="ReasonBullying" Type="bit" />
-          <Property Name="ReasonPregnancy" Type="bit" />
-          <Property Name="ReasonSexuality" Type="bit" />
-          <Property Name="ReasonOtherReason" Type="bit" />
-          <Property Name="ReasonFollowUp" Type="bit" />
           <Property Name="ReferDASGFaceToFace" Type="bit" />
           <Property Name="ReferGP" Type="bit" />
           <Property Name="ReferGovHospital" Type="bit" />
@@ -198,164 +196,36 @@ warning 6013: The table/view 'DAISY.dbo.DownloadData' does not have a primary ke
           <Property Name="ReferPoliceStation" Type="bit" />
           <Property Name="ReferPrivateHospital" Type="bit" />
           <Property Name="ReferPsychiatrist" Type="bit" />
-          <Property Name="ReferPsychologist" Type="bit" />
           <Property Name="ReferRapeCrisis" Type="bit" />
+          <Property Name="ReferPsychologist" Type="bit" />
           <Property Name="ReferShelter" Type="bit" />
           <Property Name="ReferSocialWorker" Type="bit" />
           <Property Name="ReferSupportGroup" Type="bit" />
           <Property Name="ReferTraumaCentre" Type="bit" />
-          <Property Name="ReferRehabilitationCentre" Type="bit" />
-          <Property Name="ReasonBorderlinePersonalityDisorder" Type="bit" />
-          <Property Name="ReferUniversityStudentWellness" Type="bit" />
-          <Property Name="ReferSadagHelpLine" Type="bit" />
-          <Property Name="ReferSelfHelp" Type="bit" />
-          <Property Name="ReferUber" Type="bit" />
-          <Property Name="HelpLine" Type="varchar" MaxLength="50" />
-          <Property Name="DLCallTimeOfDay" Type="varchar" MaxLength="50" />
-          <Property Name="CalledOnBehalfOf" Type="varchar" MaxLength="50" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.DownloadDataCurrentYear' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="DownloadDataCurrentYear">
-          <Property Name="Year" Type="int" />
-          <Property Name="YearMonth" Type="nvarchar" MaxLength="4000" />
-          <Property Name="CallDate" Type="datetime" />
-          <Property Name="Age" Type="varchar" MaxLength="10" />
-          <Property Name="Gender" Type="varchar" MaxLength="10" />
-          <Property Name="Race" Type="varchar" MaxLength="50" />
-          <Property Name="MedicalAid" Type="varchar" MaxLength="10" />
-          <Property Name="Medication" Type="varchar" MaxLength="10" />
-          <Property Name="Province" Type="varchar" MaxLength="50" />
-          <Property Name="Counsellor" Type="varchar" MaxLength="100" />
-          <Property Name="ReasonADHD" Type="bit" />
-          <Property Name="ReasonAlzheimersDementia" Type="bit" />
-          <Property Name="ReasonAnxiety" Type="bit" />
-          <Property Name="ReasonBipolar" Type="bit" />
-          <Property Name="ReasonDebtPovertyUnemployment" Type="bit" />
-          <Property Name="ReasonDepression" Type="bit" />
-          <Property Name="ReasonEatingDisoirder" Type="bit" />
-          <Property Name="ReasonHIVAIDS" Type="bit" />
-          <Property Name="ReasonInformation" Type="bit" />
-          <Property Name="ReasonLossGriefLoneliness" Type="bit" />
-          <Property Name="ReasonNone" Type="bit" />
-          <Property Name="ReasonOCD" Type="bit" />
-          <Property Name="ReasonOtherIllness" Type="bit" />
-          <Property Name="ReasonPhysicalEmotionalAbuse" Type="bit" />
-          <Property Name="ReasonPostNatalDepression" Type="bit" />
-          <Property Name="ReasonPTSDTrauma" Type="bit" />
-          <Property Name="ReasonReationshipDomesticAbuse" Type="bit" />
-          <Property Name="ReasonSchizophrenia" Type="bit" />
-          <Property Name="ReasonSelfMutilation" Type="bit" />
-          <Property Name="ReasonSexualAbuseRape" Type="bit" />
-          <Property Name="ReasonSleepingDisorder" Type="bit" />
-          <Property Name="ReasonSocialPhobia" Type="bit" />
-          <Property Name="ReasonStress" Type="bit" />
-          <Property Name="ReasonSubstanceAbuse" Type="bit" />
-          <Property Name="ReasonSuicide" Type="bit" />
+          <Property Name="CallSummary" Type="varchar" MaxLength="8000" />
           <Property Name="ReasonFrequentCaller" Type="bit" />
           <Property Name="ReasonBullying" Type="bit" />
           <Property Name="ReasonPregnancy" Type="bit" />
           <Property Name="ReasonSexuality" Type="bit" />
-          <Property Name="ReasonOtherReason" Type="bit" />
-          <Property Name="ReasonFollowUp" Type="bit" />
-          <Property Name="ReferDASGFaceToFace" Type="bit" />
-          <Property Name="ReferGP" Type="bit" />
-          <Property Name="ReferGovHospital" Type="bit" />
-          <Property Name="ReferLiteratureWebsite" Type="bit" />
-          <Property Name="ReferNone" Type="bit" />
-          <Property Name="ReferOther" Type="bit" />
-          <Property Name="ReferOtherNGOHelpline" Type="bit" />
-          <Property Name="ReferPoliceStation" Type="bit" />
-          <Property Name="ReferPrivateHospital" Type="bit" />
-          <Property Name="ReferPsychiatrist" Type="bit" />
-          <Property Name="ReferPsychologist" Type="bit" />
-          <Property Name="ReferRapeCrisis" Type="bit" />
-          <Property Name="ReferShelter" Type="bit" />
-          <Property Name="ReferSocialWorker" Type="bit" />
-          <Property Name="ReferSupportGroup" Type="bit" />
-          <Property Name="ReferTraumaCentre" Type="bit" />
           <Property Name="ReferRehabilitationCentre" Type="bit" />
           <Property Name="ReasonBorderlinePersonalityDisorder" Type="bit" />
+          <Property Name="HelpLine" Type="varchar" MaxLength="50" />
+          <Property Name="ReasonOtherReason" Type="bit" />
+          <Property Name="ReasonFollowUp" Type="bit" />
           <Property Name="ReferUniversityStudentWellness" Type="bit" />
           <Property Name="ReferSadagHelpLine" Type="bit" />
           <Property Name="ReferSelfHelp" Type="bit" />
           <Property Name="ReferUber" Type="bit" />
-          <Property Name="HelpLine" Type="varchar" MaxLength="50" />
           <Property Name="DLCallTimeOfDay" Type="varchar" MaxLength="50" />
           <Property Name="CalledOnBehalfOf" Type="varchar" MaxLength="50" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.Stats By Disorder' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Stats By Disorder">
-          <Property Name="Measure" Type="varchar" MaxLength="38" />
-          <Property Name="Jan" Type="int" />
-          <Property Name="Feb" Type="int" />
-          <Property Name="Mar" Type="int" />
-          <Property Name="Apr" Type="int" />
-          <Property Name="May" Type="int" />
-          <Property Name="Jun" Type="int" />
-          <Property Name="Jul" Type="int" />
-          <Property Name="Aug" Type="int" />
-          <Property Name="Sep" Type="int" />
-          <Property Name="Oct" Type="int" />
-          <Property Name="Nov" Type="int" />
-          <Property Name="Dec" Type="int" />
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.Stats By Province' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Stats By Province">
-          <Property Name="Measure" Type="varchar" MaxLength="50" />
-          <Property Name="Jan" Type="int" />
-          <Property Name="Feb" Type="int" />
-          <Property Name="Mar" Type="int" />
-          <Property Name="Apr" Type="int" />
-          <Property Name="May" Type="int" />
-          <Property Name="Jun" Type="int" />
-          <Property Name="Jul" Type="int" />
-          <Property Name="Aug" Type="int" />
-          <Property Name="Sep" Type="int" />
-          <Property Name="Oct" Type="int" />
-          <Property Name="Nov" Type="int" />
-          <Property Name="Dec" Type="int" />
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.Stats by Race' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Stats by Race">
-          <Property Name="Measure" Type="varchar" MaxLength="50" />
-          <Property Name="Jan" Type="int" />
-          <Property Name="Feb" Type="int" />
-          <Property Name="Mar" Type="int" />
-          <Property Name="Apr" Type="int" />
-          <Property Name="May" Type="int" />
-          <Property Name="Jun" Type="int" />
-          <Property Name="Jul" Type="int" />
-          <Property Name="Aug" Type="int" />
-          <Property Name="Sep" Type="int" />
-          <Property Name="Oct" Type="int" />
-          <Property Name="Nov" Type="int" />
-          <Property Name="Dec" Type="int" />
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Stats by Sex">
-          <Property Name="Measure" Type="varchar" MaxLength="10" />
-          <Property Name="Jan" Type="int" />
-          <Property Name="Feb" Type="int" />
-          <Property Name="Mar" Type="int" />
-          <Property Name="Apr" Type="int" />
-          <Property Name="May" Type="int" />
-          <Property Name="Jun" Type="int" />
-          <Property Name="Jul" Type="int" />
-          <Property Name="Aug" Type="int" />
-          <Property Name="Sep" Type="int" />
-          <Property Name="Oct" Type="int" />
-          <Property Name="Nov" Type="int" />
-          <Property Name="Dec" Type="int" />
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
+          <Property Name="ActionPoints" Type="varchar" MaxLength="8000" />
+          <Property Name="ReasonRelationshipRomanticIssues" Type="bit" />
+          <Property Name="ReasonRelationshipFamilyIssues" Type="bit" />
+          <Property Name="ReferCompanyEAP" Type="bit" />
+          <Property Name="ReferUniversitySupportServices" Type="bit" />
+          <Property Name="DistressRatingBegining" Type="int" />
+          <Property Name="DistressRatingEnd" Type="int" />
+        </EntityType>
         <Function Name="CamelCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="Str" Type="varchar" Mode="In" />
         </Function>
@@ -447,7 +317,6 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <Parameter Name="ReferUniversitySupportServices" Type="bit" Mode="In" />
           <Parameter Name="DistressRatingBegining" Type="int" Mode="In" />
           <Parameter Name="DistressRatingEnd" Type="int" Mode="In" />
-          <Parameter Name="ReasonAcademicStress" Type="bit" Mode="In" />
         </Function>
         <Function Name="CreateCaseWrite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="varchar" Mode="In" />
@@ -536,9 +405,8 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <Parameter Name="ReferUniversitySupportServices" Type="bit" Mode="In" />
           <Parameter Name="DistressRatingBegining" Type="int" Mode="In" />
           <Parameter Name="DistressRatingEnd" Type="int" Mode="In" />
-          <Parameter Name="ReasonAcademicStress" Type="bit" Mode="In" />
         </Function>
-        <EntityContainer Name="DAISYModelStoreContainer">
+        <EntityContainer Name="DAISYModelAzureStoreContainer">
           <EntitySet Name="Callers" EntityType="Self.Callers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calls" EntityType="Self.Calls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Counsellors" EntityType="Self.Counsellors" Schema="dbo" store:Type="Tables" />
@@ -547,11 +415,87 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <EntitySet Name="DLTimes" EntityType="Self.DLTimes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DLTypes" EntityType="Self.DLTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Helplines" EntityType="Self.Helplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CallerCallInfo" EntityType="Self.CallerCallInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CallerCallInfo].[CALLERID] AS [CALLERID], 
+    [CallerCallInfo].[Name] AS [Name], 
+    [CallerCallInfo].[Surname] AS [Surname], 
+    [CallerCallInfo].[Age] AS [Age], 
+    [CallerCallInfo].[CALLID] AS [CALLID], 
+    [CallerCallInfo].[Counsellor] AS [Counsellor], 
+    [CallerCallInfo].[CallDate] AS [CallDate], 
+    [CallerCallInfo].[ReasonADHD] AS [ReasonADHD], 
+    [CallerCallInfo].[ReasonAlzheimersDementia] AS [ReasonAlzheimersDementia], 
+    [CallerCallInfo].[ReasonAnxiety] AS [ReasonAnxiety], 
+    [CallerCallInfo].[ReasonBipolar] AS [ReasonBipolar], 
+    [CallerCallInfo].[ReasonDebtPovertyUnemployment] AS [ReasonDebtPovertyUnemployment], 
+    [CallerCallInfo].[ReasonDepression] AS [ReasonDepression], 
+    [CallerCallInfo].[ReasonEatingDisoirder] AS [ReasonEatingDisoirder], 
+    [CallerCallInfo].[ReasonInformation] AS [ReasonInformation], 
+    [CallerCallInfo].[ReasonHIVAIDS] AS [ReasonHIVAIDS], 
+    [CallerCallInfo].[ReasonLossGriefLoneliness] AS [ReasonLossGriefLoneliness], 
+    [CallerCallInfo].[ReasonNone] AS [ReasonNone], 
+    [CallerCallInfo].[ReasonOCD] AS [ReasonOCD], 
+    [CallerCallInfo].[ReasonOtherIllness] AS [ReasonOtherIllness], 
+    [CallerCallInfo].[ReasonPhysicalEmotionalAbuse] AS [ReasonPhysicalEmotionalAbuse], 
+    [CallerCallInfo].[ReasonPostNatalDepression] AS [ReasonPostNatalDepression], 
+    [CallerCallInfo].[ReasonPTSDTrauma] AS [ReasonPTSDTrauma], 
+    [CallerCallInfo].[ReasonReationshipDomesticAbuse] AS [ReasonReationshipDomesticAbuse], 
+    [CallerCallInfo].[ReasonSchizophrenia] AS [ReasonSchizophrenia], 
+    [CallerCallInfo].[ReasonSelfMutilation] AS [ReasonSelfMutilation], 
+    [CallerCallInfo].[ReasonSexualAbuseRape] AS [ReasonSexualAbuseRape], 
+    [CallerCallInfo].[ReasonSleepingDisorder] AS [ReasonSleepingDisorder], 
+    [CallerCallInfo].[ReasonSocialPhobia] AS [ReasonSocialPhobia], 
+    [CallerCallInfo].[ReasonStress] AS [ReasonStress], 
+    [CallerCallInfo].[ReasonSubstanceAbuse] AS [ReasonSubstanceAbuse], 
+    [CallerCallInfo].[ReasonSuicide] AS [ReasonSuicide], 
+    [CallerCallInfo].[ReferDASGFaceToFace] AS [ReferDASGFaceToFace], 
+    [CallerCallInfo].[ReferGP] AS [ReferGP], 
+    [CallerCallInfo].[ReferGovHospital] AS [ReferGovHospital], 
+    [CallerCallInfo].[ReferLiteratureWebsite] AS [ReferLiteratureWebsite], 
+    [CallerCallInfo].[ReferNone] AS [ReferNone], 
+    [CallerCallInfo].[ReferOther] AS [ReferOther], 
+    [CallerCallInfo].[ReferOtherNGOHelpline] AS [ReferOtherNGOHelpline], 
+    [CallerCallInfo].[ReferPoliceStation] AS [ReferPoliceStation], 
+    [CallerCallInfo].[ReferPrivateHospital] AS [ReferPrivateHospital], 
+    [CallerCallInfo].[ReferPsychiatrist] AS [ReferPsychiatrist], 
+    [CallerCallInfo].[ReferRapeCrisis] AS [ReferRapeCrisis], 
+    [CallerCallInfo].[ReferPsychologist] AS [ReferPsychologist], 
+    [CallerCallInfo].[ReferShelter] AS [ReferShelter], 
+    [CallerCallInfo].[ReferSocialWorker] AS [ReferSocialWorker], 
+    [CallerCallInfo].[ReferSupportGroup] AS [ReferSupportGroup], 
+    [CallerCallInfo].[ReferTraumaCentre] AS [ReferTraumaCentre], 
+    [CallerCallInfo].[CallSummary] AS [CallSummary], 
+    [CallerCallInfo].[ReasonFrequentCaller] AS [ReasonFrequentCaller], 
+    [CallerCallInfo].[ReasonBullying] AS [ReasonBullying], 
+    [CallerCallInfo].[ReasonPregnancy] AS [ReasonPregnancy], 
+    [CallerCallInfo].[ReasonSexuality] AS [ReasonSexuality], 
+    [CallerCallInfo].[ReferRehabilitationCentre] AS [ReferRehabilitationCentre], 
+    [CallerCallInfo].[ReasonBorderlinePersonalityDisorder] AS [ReasonBorderlinePersonalityDisorder], 
+    [CallerCallInfo].[HelpLine] AS [HelpLine], 
+    [CallerCallInfo].[ReasonOtherReason] AS [ReasonOtherReason], 
+    [CallerCallInfo].[ReasonFollowUp] AS [ReasonFollowUp], 
+    [CallerCallInfo].[ReferUniversityStudentWellness] AS [ReferUniversityStudentWellness], 
+    [CallerCallInfo].[ReferSadagHelpLine] AS [ReferSadagHelpLine], 
+    [CallerCallInfo].[ReferSelfHelp] AS [ReferSelfHelp], 
+    [CallerCallInfo].[ReferUber] AS [ReferUber], 
+    [CallerCallInfo].[DLCallTimeOfDay] AS [DLCallTimeOfDay], 
+    [CallerCallInfo].[CalledOnBehalfOf] AS [CalledOnBehalfOf], 
+    [CallerCallInfo].[ActionPoints] AS [ActionPoints], 
+    [CallerCallInfo].[ReasonRelationshipRomanticIssues] AS [ReasonRelationshipRomanticIssues], 
+    [CallerCallInfo].[ReasonRelationshipFamilyIssues] AS [ReasonRelationshipFamilyIssues], 
+    [CallerCallInfo].[ReferCompanyEAP] AS [ReferCompanyEAP], 
+    [CallerCallInfo].[ReferUniversitySupportServices] AS [ReferUniversitySupportServices], 
+    [CallerCallInfo].[DistressRatingBegining] AS [DistressRatingBegining], 
+    [CallerCallInfo].[DistressRatingEnd] AS [DistressRatingEnd]
+    FROM [dbo].[CallerCallInfo] AS [CallerCallInfo]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DAISYModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DAISYModelAzure" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Caller">
           <Key>
             <PropertyRef Name="CALLERID" />
@@ -650,7 +594,6 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <Property Name="ReferUniversitySupportServices" Type="Boolean" />
           <Property Name="DistressRatingBegining" Type="Int32" />
           <Property Name="DistressRatingEnd" Type="Int32" />
-          <Property Name="ReasonAcademicStress" Type="Boolean" />
         </EntityType>
         <EntityType Name="Counsellor">
           <Key>
@@ -690,7 +633,84 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <Property Name="Helpline1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="DAISYEntities" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="CallerCallInfo">
+          <Key>
+            <PropertyRef Name="CALLERID" />
+            <PropertyRef Name="CALLID" />
+          </Key>
+          <Property Name="CALLERID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CALLID" Type="Int32" Nullable="false" />
+          <Property Name="Counsellor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CallDate" Type="DateTime" Precision="3" />
+          <Property Name="ReasonADHD" Type="Boolean" />
+          <Property Name="ReasonAlzheimersDementia" Type="Boolean" />
+          <Property Name="ReasonAnxiety" Type="Boolean" />
+          <Property Name="ReasonBipolar" Type="Boolean" />
+          <Property Name="ReasonDebtPovertyUnemployment" Type="Boolean" />
+          <Property Name="ReasonDepression" Type="Boolean" />
+          <Property Name="ReasonEatingDisoirder" Type="Boolean" />
+          <Property Name="ReasonInformation" Type="Boolean" />
+          <Property Name="ReasonHIVAIDS" Type="Boolean" />
+          <Property Name="ReasonLossGriefLoneliness" Type="Boolean" />
+          <Property Name="ReasonNone" Type="Boolean" />
+          <Property Name="ReasonOCD" Type="Boolean" />
+          <Property Name="ReasonOtherIllness" Type="Boolean" />
+          <Property Name="ReasonPhysicalEmotionalAbuse" Type="Boolean" />
+          <Property Name="ReasonPostNatalDepression" Type="Boolean" />
+          <Property Name="ReasonPTSDTrauma" Type="Boolean" />
+          <Property Name="ReasonReationshipDomesticAbuse" Type="Boolean" />
+          <Property Name="ReasonSchizophrenia" Type="Boolean" />
+          <Property Name="ReasonSelfMutilation" Type="Boolean" />
+          <Property Name="ReasonSexualAbuseRape" Type="Boolean" />
+          <Property Name="ReasonSleepingDisorder" Type="Boolean" />
+          <Property Name="ReasonSocialPhobia" Type="Boolean" />
+          <Property Name="ReasonStress" Type="Boolean" />
+          <Property Name="ReasonSubstanceAbuse" Type="Boolean" />
+          <Property Name="ReasonSuicide" Type="Boolean" />
+          <Property Name="ReferDASGFaceToFace" Type="Boolean" />
+          <Property Name="ReferGP" Type="Boolean" />
+          <Property Name="ReferGovHospital" Type="Boolean" />
+          <Property Name="ReferLiteratureWebsite" Type="Boolean" />
+          <Property Name="ReferNone" Type="Boolean" />
+          <Property Name="ReferOther" Type="Boolean" />
+          <Property Name="ReferOtherNGOHelpline" Type="Boolean" />
+          <Property Name="ReferPoliceStation" Type="Boolean" />
+          <Property Name="ReferPrivateHospital" Type="Boolean" />
+          <Property Name="ReferPsychiatrist" Type="Boolean" />
+          <Property Name="ReferRapeCrisis" Type="Boolean" />
+          <Property Name="ReferPsychologist" Type="Boolean" />
+          <Property Name="ReferShelter" Type="Boolean" />
+          <Property Name="ReferSocialWorker" Type="Boolean" />
+          <Property Name="ReferSupportGroup" Type="Boolean" />
+          <Property Name="ReferTraumaCentre" Type="Boolean" />
+          <Property Name="CallSummary" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="ReasonFrequentCaller" Type="Boolean" />
+          <Property Name="ReasonBullying" Type="Boolean" />
+          <Property Name="ReasonPregnancy" Type="Boolean" />
+          <Property Name="ReasonSexuality" Type="Boolean" />
+          <Property Name="ReferRehabilitationCentre" Type="Boolean" />
+          <Property Name="ReasonBorderlinePersonalityDisorder" Type="Boolean" />
+          <Property Name="HelpLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReasonOtherReason" Type="Boolean" />
+          <Property Name="ReasonFollowUp" Type="Boolean" />
+          <Property Name="ReferUniversityStudentWellness" Type="Boolean" />
+          <Property Name="ReferSadagHelpLine" Type="Boolean" />
+          <Property Name="ReferSelfHelp" Type="Boolean" />
+          <Property Name="ReferUber" Type="Boolean" />
+          <Property Name="DLCallTimeOfDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CalledOnBehalfOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActionPoints" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="ReasonRelationshipRomanticIssues" Type="Boolean" />
+          <Property Name="ReasonRelationshipFamilyIssues" Type="Boolean" />
+          <Property Name="ReferCompanyEAP" Type="Boolean" />
+          <Property Name="ReferUniversitySupportServices" Type="Boolean" />
+          <Property Name="DistressRatingBegining" Type="Int32" />
+          <Property Name="DistressRatingEnd" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="DAISYEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Callers" EntityType="Self.Caller" />
           <EntitySet Name="Calls" EntityType="Self.Call" />
           <EntitySet Name="Counsellors" EntityType="Self.Counsellor" />
@@ -699,6 +719,7 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
           <EntitySet Name="DLTimes" EntityType="Self.DLTime" />
           <EntitySet Name="DLTypes" EntityType="Self.DLType" />
           <EntitySet Name="Helplines" EntityType="Self.Helpline" />
+          <EntitySet Name="CallerCallInfoes" EntityType="Self.CallerCallInfo" />
           <FunctionImport Name="CreateCaseUpdate">
             <Parameter Name="CALLERID" Mode="In" Type="Int32" />
             <Parameter Name="Name" Mode="In" Type="String" />
@@ -787,7 +808,6 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
             <Parameter Name="ReferUniversitySupportServices" Mode="In" Type="Boolean" />
             <Parameter Name="DistressRatingBegining" Mode="In" Type="Int32" />
             <Parameter Name="DistressRatingEnd" Mode="In" Type="Int32" />
-            <Parameter Name="ReasonAcademicStress" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="CreateCaseWrite">
             <Parameter Name="Name" Mode="In" Type="String" />
@@ -876,96 +896,6 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
             <Parameter Name="ReferUniversitySupportServices" Mode="In" Type="Boolean" />
             <Parameter Name="DistressRatingBegining" Mode="In" Type="Int32" />
             <Parameter Name="DistressRatingEnd" Mode="In" Type="Int32" />
-            <Parameter Name="ReasonAcademicStress" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="FINCCW">
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Surname" Mode="In" Type="String" />
-            <Parameter Name="Age" Mode="In" Type="String" />
-            <Parameter Name="Sex" Mode="In" Type="String" />
-            <Parameter Name="Race" Mode="In" Type="String" />
-            <Parameter Name="Occupation" Mode="In" Type="String" />
-            <Parameter Name="MedicalAid" Mode="In" Type="String" />
-            <Parameter Name="Medication" Mode="In" Type="String" />
-            <Parameter Name="Address" Mode="In" Type="String" />
-            <Parameter Name="City" Mode="In" Type="String" />
-            <Parameter Name="Province" Mode="In" Type="String" />
-            <Parameter Name="PostalCode" Mode="In" Type="String" />
-            <Parameter Name="Telephone1" Mode="In" Type="String" />
-            <Parameter Name="Telephone2" Mode="In" Type="String" />
-            <Parameter Name="EmailAddress" Mode="In" Type="String" />
-            <Parameter Name="Suburb" Mode="In" Type="String" />
-            <Parameter Name="DLLocation" Mode="In" Type="String" />
-            <Parameter Name="DLType" Mode="In" Type="String" />
-            <Parameter Name="DLSource" Mode="In" Type="String" />
-            <Parameter Name="DLStudentNumber" Mode="In" Type="String" />
-            <Parameter Name="Counsellor" Mode="In" Type="String" />
-            <Parameter Name="CallDate" Mode="In" Type="DateTime" />
-            <Parameter Name="ReasonADHD" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonAlzheimersDementia" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonAnxiety" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonBipolar" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonDebtPovertyUnemployment" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonDepression" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonEatingDisoirder" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonHIVAIDS" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonInformation" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonLossGriefLoneliness" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonNone" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonOCD" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonOtherIllness" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonPhysicalEmotionalAbuse" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonPostNatalDepression" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonPTSDTrauma" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonReationshipDomesticAbuse" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSchizophrenia" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSelfMutilation" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSexualAbuseRape" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSleepingDisorder" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSocialPhobia" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonStress" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSubstanceAbuse" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSuicide" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferDASGFaceToFace" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferGP" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferGovHospital" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferLiteratureWebsite" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferNone" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferOther" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferOtherNGOHelpline" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferPoliceStation" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferPrivateHospital" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferPsychiatrist" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferPsychologist" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferRapeCrisis" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferShelter" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferSocialWorker" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferSupportGroup" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferTraumaCentre" Mode="In" Type="Boolean" />
-            <Parameter Name="CallSummary" Mode="In" Type="String" />
-            <Parameter Name="ReasonFrequentCaller" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonBullying" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonPregnancy" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonSexuality" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferRehabilitationCentre" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonBorderlinePersonalityDisorder" Mode="In" Type="Boolean" />
-            <Parameter Name="HelpLine" Mode="In" Type="String" />
-            <Parameter Name="ReasonOtherReason" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonFollowUp" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferUniversityStudentWellness" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferSadagHelpLine" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferSelfHelp" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferUber" Mode="In" Type="Boolean" />
-            <Parameter Name="DLCallTimeOfDay" Mode="In" Type="String" />
-            <Parameter Name="CalledOnBehalfOf" Mode="In" Type="String" />
-            <Parameter Name="ActionPoints" Mode="In" Type="String" />
-            <Parameter Name="ReasonRelationshipRomanticIssues" Mode="In" Type="Boolean" />
-            <Parameter Name="ReasonRelationshipFamilyIssues" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferCompanyEAP" Mode="In" Type="Boolean" />
-            <Parameter Name="ReferUniversitySupportServices" Mode="In" Type="Boolean" />
-            <Parameter Name="DistressRatingBegining" Mode="In" Type="Int32" />
-            <Parameter Name="DistressRatingEnd" Mode="In" Type="Int32" />
-            <Parameter Name="ReasonAcademicStress" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -973,9 +903,9 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DAISYModelStoreContainer" CdmEntityContainer="DAISYEntities">
+        <EntityContainerMapping StorageEntityContainer="DAISYModelAzureStoreContainer" CdmEntityContainer="DAISYEntities1">
           <EntitySetMapping Name="Callers">
-            <EntityTypeMapping TypeName="DAISYModel.Caller">
+            <EntityTypeMapping TypeName="DAISYModelAzure.Caller">
               <MappingFragment StoreEntitySet="Callers">
                 <ScalarProperty Name="CALLERID" ColumnName="CALLERID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1002,7 +932,7 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Calls">
-            <EntityTypeMapping TypeName="DAISYModel.Call">
+            <EntityTypeMapping TypeName="DAISYModelAzure.Call">
               <MappingFragment StoreEntitySet="Calls">
                 <ScalarProperty Name="CALLID" ColumnName="CALLID" />
                 <ScalarProperty Name="CALLERID" ColumnName="CALLERID" />
@@ -1072,12 +1002,11 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
                 <ScalarProperty Name="ReferUniversitySupportServices" ColumnName="ReferUniversitySupportServices" />
                 <ScalarProperty Name="DistressRatingBegining" ColumnName="DistressRatingBegining" />
                 <ScalarProperty Name="DistressRatingEnd" ColumnName="DistressRatingEnd" />
-                <ScalarProperty Name="ReasonAcademicStress" ColumnName="ReasonAcademicStress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Counsellors">
-            <EntityTypeMapping TypeName="DAISYModel.Counsellor">
+            <EntityTypeMapping TypeName="DAISYModelAzure.Counsellor">
               <MappingFragment StoreEntitySet="Counsellors">
                 <ScalarProperty Name="Counsellor1" ColumnName="Counsellor" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -1085,44 +1014,120 @@ warning 6013: The table/view 'DAISY.dbo.Stats by Sex' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DLLocations">
-            <EntityTypeMapping TypeName="DAISYModel.DLLocation">
+            <EntityTypeMapping TypeName="DAISYModelAzure.DLLocation">
               <MappingFragment StoreEntitySet="DLLocations">
                 <ScalarProperty Name="Location" ColumnName="Location" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DLSources">
-            <EntityTypeMapping TypeName="DAISYModel.DLSource">
+            <EntityTypeMapping TypeName="DAISYModelAzure.DLSource">
               <MappingFragment StoreEntitySet="DLSources">
                 <ScalarProperty Name="Source" ColumnName="Source" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DLTimes">
-            <EntityTypeMapping TypeName="DAISYModel.DLTime">
+            <EntityTypeMapping TypeName="DAISYModelAzure.DLTime">
               <MappingFragment StoreEntitySet="DLTimes">
                 <ScalarProperty Name="Time" ColumnName="Time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DLTypes">
-            <EntityTypeMapping TypeName="DAISYModel.DLType">
+            <EntityTypeMapping TypeName="DAISYModelAzure.DLType">
               <MappingFragment StoreEntitySet="DLTypes">
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Helplines">
-            <EntityTypeMapping TypeName="DAISYModel.Helpline">
+            <EntityTypeMapping TypeName="DAISYModelAzure.Helpline">
               <MappingFragment StoreEntitySet="Helplines">
                 <ScalarProperty Name="Helpline1" ColumnName="Helpline" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CreateCaseUpdate" FunctionName="DAISYModel.Store.CreateCaseUpdate" />
-          <FunctionImportMapping FunctionImportName="CreateCaseWrite" FunctionName="DAISYModel.Store.CreateCaseWrite" />
-          <FunctionImportMapping FunctionImportName="FINCCW" FunctionName="DAISYModel.Store.CreateCaseWrite" />
+          <EntitySetMapping Name="CallerCallInfoes">
+            <EntityTypeMapping TypeName="DAISYModelAzure.CallerCallInfo">
+              <MappingFragment StoreEntitySet="CallerCallInfo">
+                <ScalarProperty Name="CALLERID" ColumnName="CALLERID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="CALLID" ColumnName="CALLID" />
+                <ScalarProperty Name="Counsellor" ColumnName="Counsellor" />
+                <ScalarProperty Name="CallDate" ColumnName="CallDate" />
+                <ScalarProperty Name="ReasonADHD" ColumnName="ReasonADHD" />
+                <ScalarProperty Name="ReasonAlzheimersDementia" ColumnName="ReasonAlzheimersDementia" />
+                <ScalarProperty Name="ReasonAnxiety" ColumnName="ReasonAnxiety" />
+                <ScalarProperty Name="ReasonBipolar" ColumnName="ReasonBipolar" />
+                <ScalarProperty Name="ReasonDebtPovertyUnemployment" ColumnName="ReasonDebtPovertyUnemployment" />
+                <ScalarProperty Name="ReasonDepression" ColumnName="ReasonDepression" />
+                <ScalarProperty Name="ReasonEatingDisoirder" ColumnName="ReasonEatingDisoirder" />
+                <ScalarProperty Name="ReasonInformation" ColumnName="ReasonInformation" />
+                <ScalarProperty Name="ReasonHIVAIDS" ColumnName="ReasonHIVAIDS" />
+                <ScalarProperty Name="ReasonLossGriefLoneliness" ColumnName="ReasonLossGriefLoneliness" />
+                <ScalarProperty Name="ReasonNone" ColumnName="ReasonNone" />
+                <ScalarProperty Name="ReasonOCD" ColumnName="ReasonOCD" />
+                <ScalarProperty Name="ReasonOtherIllness" ColumnName="ReasonOtherIllness" />
+                <ScalarProperty Name="ReasonPhysicalEmotionalAbuse" ColumnName="ReasonPhysicalEmotionalAbuse" />
+                <ScalarProperty Name="ReasonPostNatalDepression" ColumnName="ReasonPostNatalDepression" />
+                <ScalarProperty Name="ReasonPTSDTrauma" ColumnName="ReasonPTSDTrauma" />
+                <ScalarProperty Name="ReasonReationshipDomesticAbuse" ColumnName="ReasonReationshipDomesticAbuse" />
+                <ScalarProperty Name="ReasonSchizophrenia" ColumnName="ReasonSchizophrenia" />
+                <ScalarProperty Name="ReasonSelfMutilation" ColumnName="ReasonSelfMutilation" />
+                <ScalarProperty Name="ReasonSexualAbuseRape" ColumnName="ReasonSexualAbuseRape" />
+                <ScalarProperty Name="ReasonSleepingDisorder" ColumnName="ReasonSleepingDisorder" />
+                <ScalarProperty Name="ReasonSocialPhobia" ColumnName="ReasonSocialPhobia" />
+                <ScalarProperty Name="ReasonStress" ColumnName="ReasonStress" />
+                <ScalarProperty Name="ReasonSubstanceAbuse" ColumnName="ReasonSubstanceAbuse" />
+                <ScalarProperty Name="ReasonSuicide" ColumnName="ReasonSuicide" />
+                <ScalarProperty Name="ReferDASGFaceToFace" ColumnName="ReferDASGFaceToFace" />
+                <ScalarProperty Name="ReferGP" ColumnName="ReferGP" />
+                <ScalarProperty Name="ReferGovHospital" ColumnName="ReferGovHospital" />
+                <ScalarProperty Name="ReferLiteratureWebsite" ColumnName="ReferLiteratureWebsite" />
+                <ScalarProperty Name="ReferNone" ColumnName="ReferNone" />
+                <ScalarProperty Name="ReferOther" ColumnName="ReferOther" />
+                <ScalarProperty Name="ReferOtherNGOHelpline" ColumnName="ReferOtherNGOHelpline" />
+                <ScalarProperty Name="ReferPoliceStation" ColumnName="ReferPoliceStation" />
+                <ScalarProperty Name="ReferPrivateHospital" ColumnName="ReferPrivateHospital" />
+                <ScalarProperty Name="ReferPsychiatrist" ColumnName="ReferPsychiatrist" />
+                <ScalarProperty Name="ReferRapeCrisis" ColumnName="ReferRapeCrisis" />
+                <ScalarProperty Name="ReferPsychologist" ColumnName="ReferPsychologist" />
+                <ScalarProperty Name="ReferShelter" ColumnName="ReferShelter" />
+                <ScalarProperty Name="ReferSocialWorker" ColumnName="ReferSocialWorker" />
+                <ScalarProperty Name="ReferSupportGroup" ColumnName="ReferSupportGroup" />
+                <ScalarProperty Name="ReferTraumaCentre" ColumnName="ReferTraumaCentre" />
+                <ScalarProperty Name="CallSummary" ColumnName="CallSummary" />
+                <ScalarProperty Name="ReasonFrequentCaller" ColumnName="ReasonFrequentCaller" />
+                <ScalarProperty Name="ReasonBullying" ColumnName="ReasonBullying" />
+                <ScalarProperty Name="ReasonPregnancy" ColumnName="ReasonPregnancy" />
+                <ScalarProperty Name="ReasonSexuality" ColumnName="ReasonSexuality" />
+                <ScalarProperty Name="ReferRehabilitationCentre" ColumnName="ReferRehabilitationCentre" />
+                <ScalarProperty Name="ReasonBorderlinePersonalityDisorder" ColumnName="ReasonBorderlinePersonalityDisorder" />
+                <ScalarProperty Name="HelpLine" ColumnName="HelpLine" />
+                <ScalarProperty Name="ReasonOtherReason" ColumnName="ReasonOtherReason" />
+                <ScalarProperty Name="ReasonFollowUp" ColumnName="ReasonFollowUp" />
+                <ScalarProperty Name="ReferUniversityStudentWellness" ColumnName="ReferUniversityStudentWellness" />
+                <ScalarProperty Name="ReferSadagHelpLine" ColumnName="ReferSadagHelpLine" />
+                <ScalarProperty Name="ReferSelfHelp" ColumnName="ReferSelfHelp" />
+                <ScalarProperty Name="ReferUber" ColumnName="ReferUber" />
+                <ScalarProperty Name="DLCallTimeOfDay" ColumnName="DLCallTimeOfDay" />
+                <ScalarProperty Name="CalledOnBehalfOf" ColumnName="CalledOnBehalfOf" />
+                <ScalarProperty Name="ActionPoints" ColumnName="ActionPoints" />
+                <ScalarProperty Name="ReasonRelationshipRomanticIssues" ColumnName="ReasonRelationshipRomanticIssues" />
+                <ScalarProperty Name="ReasonRelationshipFamilyIssues" ColumnName="ReasonRelationshipFamilyIssues" />
+                <ScalarProperty Name="ReferCompanyEAP" ColumnName="ReferCompanyEAP" />
+                <ScalarProperty Name="ReferUniversitySupportServices" ColumnName="ReferUniversitySupportServices" />
+                <ScalarProperty Name="DistressRatingBegining" ColumnName="DistressRatingBegining" />
+                <ScalarProperty Name="DistressRatingEnd" ColumnName="DistressRatingEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateCaseUpdate" FunctionName="DAISYModelAzure.Store.CreateCaseUpdate" />
+          <FunctionImportMapping FunctionImportName="CreateCaseWrite" FunctionName="DAISYModelAzure.Store.CreateCaseWrite" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
